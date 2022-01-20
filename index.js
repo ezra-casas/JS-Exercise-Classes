@@ -87,12 +87,16 @@ class Car {
     this.tank += gallons;
   }
   drive(distance) {
-    let drivableMiles = this.tank * this.milesPerGallon;
-    this.odometer += distance;
-    this.tank -= distance / this.milesPerGallon;
-    if (drivableMiles < distance) {
+    let milesLeft = this.tank * this.milesPerGallon;
+    let gallonsUsed = distance / this.milesPerGallon;
+
+    if(distance < milesLeft){
+      this.odometer += distance;
+      this.tank -= gallonsUsed;
+    }else{
+      this.odometer += milesLeft;
       this.tank = 0;
-      return `I ran out of fuel at ${this.milesPerGallon}`;
+      return `I ran out of fuel at ${this.odometer} miles!`
     }
   }
 }
@@ -136,7 +140,7 @@ class Lambdasian {
 */
 class Instructor extends Lambdasian {
   constructor(obj) {
-    super(obj.name, obj.age, obj.location);
+    super(obj);
     this.specialty = obj.specialty;
     this.favLanguage = obj.favLanguage;
     this.catchPhrase = obj.catchPhrase;
@@ -163,7 +167,14 @@ class Instructor extends Lambdasian {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {}
+class Student extends Lambdasian {
+  constructor(object){
+    super(object);
+    this.previousBackground = object.previousBackground;
+    this.className = object.className;
+    
+  }
+}
 
 /*
   TASK 6
